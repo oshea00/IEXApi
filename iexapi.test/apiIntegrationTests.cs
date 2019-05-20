@@ -21,5 +21,17 @@ namespace iexapi.test
             var stats = api.GetAdvancedStats("aapl");
             Assert.AreEqual("AAPL", stats.Symbol);
         }
+
+        [Test]
+        public void CanGetNews()
+        {
+            var news = api.GetNews("aapl",1);
+        }
+
+        [Test]
+        public void CanGetSymbols()
+        {
+            var symbols = api.GetSymbols();
+        }
     }
 }

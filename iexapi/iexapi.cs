@@ -29,6 +29,31 @@ namespace iexapi
             return client.DownloadString(new Uri(url));
         }
 
+        public List<IEXNews> GetNews(string ticker, int count)
+        {
+            var urlstring = $"{ApiUrl}/stock/{ticker}/news/last/{count}?token={ApiToken}";
+            var data = QueryData(urlstring);
+            var news = new List<IEXNews>();
+            foreach (JObject item in JArray.Parse(data).Children())
+            {
+                news.Add(item.ToObject<IEXNews>());
+            }
+            return news;
+        }
+
+        public List<IEXSymbol> GetSymbols()
+        {
+            var urlstring = $"{ApiUrl}/ref-data/symbols?token={ApiToken}";
+            var data = QueryData(urlstring);
+            var symbols = new List<IEXSymbol>();
+            var items = JArray.Parse(data);
+            foreach (JObject item in items)
+            {
+                symbols.Add(item.ToObject<IEXSymbol>());
+            }
+            return symbols;
+        }
+
         List<IEXPriceHistoryItem> LoadPriceHistory(string ticker, string range)
         {
             var urlstring = $"{ApiUrl}/stock/{ticker}/chart/{range}?token={ApiToken}";
