@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using iexapi;
+using iexapi.Models;
 
 namespace iexapi.test
 {
@@ -12,6 +13,13 @@ namespace iexapi.test
         {
             var prices = api.GetPriceHistory("aapl", "1m");
             Assert.Less(0, prices.Count);
+        }
+
+        [Test]
+        public void CanGetStockReferenceData()
+        {
+            var stats = api.GetAdvancedStats("aapl");
+            Assert.AreEqual("AAPL", stats.Symbol);
         }
     }
 }

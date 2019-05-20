@@ -3,6 +3,7 @@ using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using iexapi.Models;
 
 namespace iexapi
 {
@@ -22,14 +23,18 @@ namespace iexapi
             return LoadPriceHistory(ticker, period);
         }
 
-        List<IEXPriceHistoryItem> LoadPriceHistory(string ticker, string range)
+        string QueryData(string url)
         {
             var client = new WebClient();
+            return client.DownloadString(new Uri(url));
+        }
+
+        List<IEXPriceHistoryItem> LoadPriceHistory(string ticker, string range)
+        {
             var urlstring = $"{ApiUrl}/stock/{ticker}/chart/{range}?token={ApiToken}";
-            var uri = new Uri(urlstring);
-            var pricedata = client.DownloadString(uri);
+            var data = QueryData(urlstring);
             var prices = new List<IEXPriceHistoryItem>();
-            var items = JArray.Parse(pricedata);
+            var items = JArray.Parse(data);
             foreach (JObject item in items.Children())
             {
                 prices.Add(item.ToObject<IEXPriceHistoryItem>());
@@ -37,5 +42,13 @@ namespace iexapi
             return prices;
         }
 
+        public IEXAdvancedStats GetAdvancedStats(string ticker)
+        {
+            var urlstring = $"{ApiUrl}/stock/{ticker}/advanced-stats?token={ApiToken}";
+            var data = QueryData(urlstring);
+            var stats = JObject.Parse(data).ToObject<IEXAdvancedStats>();
+            stats.Symbol = ticker.ToUpper();
+            return stats;
+        }
     }
 }

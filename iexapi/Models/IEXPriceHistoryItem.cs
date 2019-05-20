@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace iexapi
+namespace iexapi.Models
 {
     public class IEXPriceHistoryItem
     {
