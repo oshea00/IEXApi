@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace iexapi.Models
@@ -53,5 +55,10 @@ namespace iexapi.Models
         public double? PriceToBook { get; set; }
         public double? ForwardPERatio { get; set; }
         public double? PegRatio { get; set; }
+        [OnError]
+        internal void OnError(StreamingContext context, ErrorContext errorContext)
+        {
+            errorContext.Handled = true;
+        }
     }
 }

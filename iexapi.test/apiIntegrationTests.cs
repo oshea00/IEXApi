@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using iexapi;
 using iexapi.Models;
+using System.Threading.Tasks;
 
 namespace iexapi.test
 {

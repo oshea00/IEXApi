@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace iexapi.Models
@@ -14,5 +16,11 @@ namespace iexapi.Models
         public string Region { get; set; }
         public string Currency { get; set; }
         public bool IsEnabled { get; set; }
+
+        [OnError]
+        internal void OnError(StreamingContext context, ErrorContext errorContext)
+        {
+            errorContext.Handled = true;
+        }
     }
 }

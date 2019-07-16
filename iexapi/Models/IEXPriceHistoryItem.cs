@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace iexapi.Models
@@ -14,6 +16,12 @@ namespace iexapi.Models
         public double Volume { get; set; }
         public double Change { get; set; }
         public double ChangePercent { get; set; }
+
+        [OnError]
+        internal void OnError(StreamingContext context, ErrorContext errorContext)
+        {
+            errorContext.Handled = true;
+        }
     }
 
 }
