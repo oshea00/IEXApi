@@ -9,52 +9,52 @@ namespace iexapi.Models
     public class IEXAdvancedStats
     {
         public string CompanyName { get; set; }
-        public double? MarketCap { get; set; }
-        public double? Week52High { get; set; }
-        public double? Week52Low { get; set; }
-        public double? Week52Change { get; set; }
-        public double? SharesOutstanding { get; set; }
-        public double? Float { get; set; }
+        public decimal? MarketCap { get; set; }
+        public decimal? Week52High { get; set; }
+        public decimal? Week52Low { get; set; }
+        public decimal? Week52Change { get; set; }
+        public decimal? SharesOutstanding { get; set; }
+        public decimal? Float { get; set; }
         public string Symbol { get; set; }
         public int? Avg10Volume { get; set; }
         public int? Avg30Volume { get; set; }
-        public double? Day200MovingAvg { get; set; }
-        public double? Day50MovingAvg { get; set; }
+        public decimal? Day200MovingAvg { get; set; }
+        public decimal? Day50MovingAvg { get; set; }
         public int? Employees { get; set; }
-        public double? TtmEPS { get; set; }
-        public double? TtmDividendRate { get; set; }
-        public double? DividendYield { get; set; }
+        public decimal? TtmEPS { get; set; }
+        public decimal? TtmDividendRate { get; set; }
+        public decimal? DividendYield { get; set; }
         public DateTime? NextDividendDate { get; set; }
         public DateTime? ExDividendDate { get; set; }
         public DateTime? NextEarningsDate { get; set; }
-        public double? PERatio { get; set; }
-        public double? Beta { get; set; }
-        public double? MaxChangePercent { get; set; }
-        public double? Year5ChangePercent { get; set; }
-        public double? Year2ChangePercent { get; set; }
-        public double? Year1ChangePercent { get; set; }
-        public double? YtdChangePercent { get; set; }
-        public double? Month6ChangePercent { get; set; }
-        public double? Month3ChangePercent { get; set; }
-        public double? Month1ChangePercent { get; set; }
-        public double? Day30ChangePercent { get; set; }
-        public double? Day5ChangePercent { get; set; }
-        public double? TotalCash { get; set; }
-        public double? CurrentDebt { get; set; }
-        public double? Revenue { get; set; }
-        public double? GrossProfit { get; set; }
-        public double? TotalRevenue { get; set; }
-        public double? EBITDA { get; set; }
-        public double? RevenuePerShare { get; set; }
-        public double? RevenuePerEmployee { get; set; }
-        public double? DebtToEquity { get; set; }
-        public double? ProfitMargin { get; set; }
-        public double? EnterpriseValue { get; set; }
-        public double? EnterpriseValueToRevenue { get; set; }
-        public double? PriceToSales { get; set; }
-        public double? PriceToBook { get; set; }
-        public double? ForwardPERatio { get; set; }
-        public double? PegRatio { get; set; }
+        public decimal? PERatio { get; set; }
+        public decimal? Beta { get; set; }
+        public decimal? MaxChangePercent { get; set; }
+        public decimal? Year5ChangePercent { get; set; }
+        public decimal? Year2ChangePercent { get; set; }
+        public decimal? Year1ChangePercent { get; set; }
+        public decimal? YtdChangePercent { get; set; }
+        public decimal? Month6ChangePercent { get; set; }
+        public decimal? Month3ChangePercent { get; set; }
+        public decimal? Month1ChangePercent { get; set; }
+        public decimal? Day30ChangePercent { get; set; }
+        public decimal? Day5ChangePercent { get; set; }
+        public decimal? TotalCash { get; set; }
+        public decimal? CurrentDebt { get; set; }
+        public decimal? Revenue { get; set; }
+        public decimal? GrossProfit { get; set; }
+        public decimal? TotalRevenue { get; set; }
+        public decimal? EBITDA { get; set; }
+        public decimal? RevenuePerShare { get; set; }
+        public decimal? RevenuePerEmployee { get; set; }
+        public decimal? DebtToEquity { get; set; }
+        public decimal? ProfitMargin { get; set; }
+        public decimal? EnterpriseValue { get; set; }
+        public decimal? EnterpriseValueToRevenue { get; set; }
+        public decimal? PriceToSales { get; set; }
+        public decimal? PriceToBook { get; set; }
+        public decimal? ForwardPERatio { get; set; }
+        public decimal? PegRatio { get; set; }
         [OnError]
         internal void OnError(StreamingContext context, ErrorContext errorContext)
         {

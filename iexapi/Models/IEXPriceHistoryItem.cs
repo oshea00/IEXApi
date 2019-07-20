@@ -9,13 +9,13 @@ namespace iexapi.Models
     public class IEXPriceHistoryItem
     {
         public DateTime Date { get; set; }
-        public double Open { get; set; }
-        public double Close { get; set; }
-        public double High { get; set; }
-        public double Low { get; set; }
-        public double Volume { get; set; }
-        public double Change { get; set; }
-        public double ChangePercent { get; set; }
+        public decimal Open { get; set; }
+        public decimal Close { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Volume { get; set; }
+        public decimal Change { get; set; }
+        public decimal ChangePercent { get; set; }
 
         [OnError]
         internal void OnError(StreamingContext context, ErrorContext errorContext)

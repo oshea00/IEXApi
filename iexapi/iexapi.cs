@@ -21,6 +21,22 @@ namespace iexapi
             ApiToken = apitoken;
         }
 
+        public async Task<IEXCompanyBalanceSheet> GetBalanceSheetAsync(string ticker)
+        {
+            var result = await GetStringAsync($"stock/{ticker}/balance-sheet?token={ApiToken}");
+            var report = JObject.Parse(result).ToObject<IEXCompanyBalanceSheet>();
+            report.Symbol = ticker.ToUpper();
+            return report;
+        }
+
+        public IEXCompanyBalanceSheet GetBalanceSheet(string ticker)
+        {
+            var promise = GetBalanceSheetAsync(ticker);
+            promise.Wait();
+            return promise.Result;
+
+        }
+
         public async Task<List<IEXPriceHistoryItem>> GetPriceHistoryAsync(string ticker, string range)
         {
             var result = await GetStringAsync($"stock/{ticker}/chart/{range}?token={ApiToken}");

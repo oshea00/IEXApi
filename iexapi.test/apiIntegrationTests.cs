@@ -24,6 +24,13 @@ namespace iexapi.test
         }
 
         [Test]
+        public void CanGetBalanceSheet()
+        {
+            var reports = api.GetBalanceSheet("aapl");
+            Assert.AreEqual("AAPL", reports.Symbol);
+        }
+
+        [Test]
         public void CanGetNews()
         {
             var news = api.GetNews("aapl",1);
