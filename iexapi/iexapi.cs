@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Net;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using iexapi.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
+using iexapi.Models;
 
 namespace iexapi
 {
@@ -23,9 +20,12 @@ namespace iexapi
 
         public async Task<IEXCompanyBalanceSheet> GetBalanceSheetAsync(string ticker)
         {
-            var result = await GetStringAsync($"stock/{ticker}/balance-sheet?token={ApiToken}");
-            var report = JObject.Parse(result).ToObject<IEXCompanyBalanceSheet>();
-            report.Symbol = ticker.ToUpper();
+            IEXCompanyBalanceSheet report = null;
+            var response = await GetAsync($"stock/{ticker}/balance-sheet?token={ApiToken}");
+            if (response.IsSuccessStatusCode)
+            {
+                report = await response.Content.ReadAsAsync<IEXCompanyBalanceSheet>();
+            }
             return report;
         }
 
@@ -39,12 +39,15 @@ namespace iexapi
 
         public async Task<List<IEXPriceHistoryItem>> GetPriceHistoryAsync(string ticker, string range)
         {
-            var result = await GetStringAsync($"stock/{ticker}/chart/{range}?token={ApiToken}");
+            var result = await GetAsync($"stock/{ticker}/chart/{range}?token={ApiToken}");
             var prices = new List<IEXPriceHistoryItem>();
-            var items = JArray.Parse(result);
-            foreach (JObject item in items.Children())
+            if (result.IsSuccessStatusCode)
             {
-                prices.Add(item.ToObject<IEXPriceHistoryItem>());
+                var items = await result.Content.ReadAsAsync<List<IEXPriceHistoryItem>>();
+                foreach (var item in items)
+                {
+                    prices.Add(item);
+                }
             }
             return prices;
         }
@@ -58,11 +61,15 @@ namespace iexapi
 
         public async Task<List<IEXNews>> GetNewsAsync(string ticker, int count)
         {
-            var result = await GetStringAsync($"stock/{ticker}/news/last/{count}?token={ApiToken}");
+            var result = await GetAsync($"stock/{ticker}/news/last/{count}?token={ApiToken}");
             var news = new List<IEXNews>();
-            foreach (JObject item in JArray.Parse(result).Children())
+            if (result.IsSuccessStatusCode)
             {
-                news.Add(item.ToObject<IEXNews>());
+                var newsitems = await result.Content.ReadAsAsync<List<IEXNews>>();
+                foreach (var item in newsitems)
+                {
+                    news.Add(item);
+                }
             }
             return news;
         }
@@ -76,12 +83,15 @@ namespace iexapi
 
         public async Task<List<IEXSymbol>> GetSymbolsAsync()
         {
-            var result = await GetStringAsync($"ref-data/symbols?token={ApiToken}");
+            var result = await GetAsync($"ref-data/symbols?token={ApiToken}");
             var symbols = new List<IEXSymbol>();
-            var items = JArray.Parse(result);
-            foreach (JObject item in items)
+            if (result.IsSuccessStatusCode)
             {
-                symbols.Add(item.ToObject<IEXSymbol>());
+                var items = await result.Content.ReadAsAsync<List<IEXSymbol>>();
+                foreach (var item in items)
+                {
+                    symbols.Add(item);
+                }
             }
             return symbols;
         }
@@ -95,10 +105,14 @@ namespace iexapi
 
         public async Task<IEXAdvancedStats> GetAdvancedStatsAsync(string ticker)
         {
+            IEXAdvancedStats stats = null;
             var urlstring = $"stock/{ticker}/advanced-stats?token={ApiToken}";
-            var data = await GetStringAsync(urlstring);
-            var stats = JObject.Parse(data).ToObject<IEXAdvancedStats>();
-            stats.Symbol = ticker.ToUpper();
+            var data = await GetAsync(urlstring);
+            if (data.IsSuccessStatusCode)
+            {
+                stats = await data.Content.ReadAsAsync<IEXAdvancedStats>();
+                stats.Symbol = ticker.ToUpper();
+            }
             return stats;
         }
 
